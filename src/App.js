@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import MovieDetails from "./components/MovieDetails";
-import "./App.css";
 import Main from "./components/Main";
+import "./App.css";
 
 function App() {
 
   return (
     <>
-    <Main />
+    {/* <Main /> */}
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main/>} />

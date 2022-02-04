@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import Header from "./Header";
 import Movie from "./Movie";
+import MovieDetails from "./MovieDetails";
 import "../App.css";
 
 function Main() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const[selectedMovie,setSelectedMovie]=useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -14,7 +16,7 @@ function Main() {
         `${process.env.REACT_APP_MOVIE_DB_API}${process.env.REACT_APP_API_KEY}`
       );
       const responseMovies = await response.json();
-      console.log(responseMovies);
+      // console.log(responseMovies);
       setMovies(responseMovies.results);
     }
     fetchData();
@@ -53,9 +55,10 @@ function Main() {
           </Form.Group>
         </Form>
       </div>
+      {selectedMovie && <MovieDetails selectedMovie={selectedMovie} setSelectedMovie={setSelectedMovie} />}
       <div className="container">
         {movies.length > 0 &&
-          movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+          movies.map((movie) => <Movie key={movie.id} movie={movie} setSelectedMovie={setSelectedMovie}/>)}
       </div>
     </>
   );
